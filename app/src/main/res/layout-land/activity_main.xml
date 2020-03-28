@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:id="@+id/head_welcome"
-        android:layout_width="357dp"
+        android:layout_width="match_parent"
         android:layout_height="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -18,8 +18,8 @@
 
         <ImageView
             android:id="@+id/profile_image"
-            android:layout_width="50dp"
-            android:layout_height="55dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_marginTop="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.075"
@@ -45,8 +45,8 @@
     </LinearLayout>
 
     <ScrollView
-        android:layout_width="364dp"
-        android:layout_height="522dp"
+        android:layout_width="639dp"
+        android:layout_height="257dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
