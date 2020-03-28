@@ -4,6 +4,9 @@ public class Town {
     private String mobile;
     private String town_name;
 
+    public Town() {
+    }
+
     public Town(String mobile, String town_name) {
         this.mobile = mobile;
         this.town_name = town_name;
