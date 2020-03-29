@@ -1,11 +1,14 @@
 package com.example.uzachap;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -33,13 +36,21 @@ public class SendMessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_message);
 
+        townName = getIntent().getExtras().getString("TOWN_NAME"); //Display town name on the Toolbar
+        townNo = String.valueOf(getIntent().getExtras().getInt("TOWN_NO"));
         //Toolbar code can be placed here
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Heading to "+townName);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        //Add an up action button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        getCustomerMobile();
 
         town_name = findViewById(R.id.txt_town_name);
         town_no = findViewById(R.id.txt_town_no);
-
-        townName = getIntent().getExtras().getString("TOWN_NAME"); //Display town name on the Toolbar
-        townNo = String.valueOf(getIntent().getExtras().getInt("TOWN_NO"));
 
         town_name.setText(townName);
         town_no.setText(townNo);
@@ -50,6 +61,11 @@ public class SendMessageActivity extends AppCompatActivity {
                 sendMessage(townName, townNo);
             }
         });
+    }
+
+    private void getCustomerMobile() {
+
+
     }
 
 
@@ -90,5 +106,32 @@ public class SendMessageActivity extends AppCompatActivity {
         request.setRetryPolicy(new DefaultRetryPolicy(30000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         MySingleton.getmInstance(SendMessageActivity.this).addToRequestQueue(request);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//Delete all activity
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+//    new MaterialStyledDialog.Builder(this)
+//            .setTitle("Opps!")
+//                        .setIcon(R.drawable.ic_sentiment_very_dissatisfied_black_24dp)
+//                        .setDescription("We don't have any question in this subject")
+//                        .setPositiveText("OK")
+//                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+//        @Override
+//        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+//            dialog.dismiss();
+//            finish();
+//        }
+//    }).show();
 
 }

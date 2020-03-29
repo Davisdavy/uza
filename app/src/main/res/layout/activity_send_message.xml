@@ -6,6 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".SendMessageActivity">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+    </com.google.android.material.appbar.AppBarLayout>
+
     <TextView
         android:id="@+id/txt_town_name"
         android:layout_width="wrap_content"
@@ -30,15 +46,14 @@
 
     <Button
         android:id="@+id/btn_send_message"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:textSize="22sp"
-        android:textColor="@color/white"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="238dp"
-        android:text="SEND MESSAGE"
+        android:background="@drawable/primary_btn_bg"
+        android:fontFamily="@font/roboto_regular"
+        android:text="Logout"
+        android:textAllCaps="false"
+        android:textColor="@android:color/background_light"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
