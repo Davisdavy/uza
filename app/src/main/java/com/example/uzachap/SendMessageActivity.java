@@ -11,6 +11,8 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -19,15 +21,19 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
 public class SendMessageActivity extends AppCompatActivity {
 
     Button btnSendMessage;
-    TextView town_name;
-    TextView town_no;
+    private RecyclerView recyclerView;
+    private List<Town> list_mobile;
+    private TownAdapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     String townName;
     String townNo;
@@ -47,14 +53,23 @@ public class SendMessageActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        getCustomerMobile();
 
-        town_name = findViewById(R.id.txt_town_name);
-        town_no = findViewById(R.id.txt_town_no);
+        //no need for this
+//        town_name.setText(townName);
+//        town_no.setText(townNo);
 
-        town_name.setText(townName);
-        town_no.setText(townNo);
+       // Add recylerview here to display mobile phone numbers of customers of the town clicked
+        recyclerView=findViewById(R.id.mobile_list);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        list_mobile=new ArrayList<>();
+        adapter=new TownAdapter(this, list_mobile);
+
+
         btnSendMessage = findViewById(R.id.btn_send_message);
+
+        //this method will remain
         btnSendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,10 +78,7 @@ public class SendMessageActivity extends AppCompatActivity {
         });
     }
 
-    private void getCustomerMobile() {
 
-
-    }
 
 
     public void sendMessage(final String townName, final String townNo){

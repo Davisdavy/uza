@@ -7,6 +7,7 @@
     tools:context=".SendMessageActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay"
@@ -22,27 +23,37 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <TextView
-        android:id="@+id/txt_town_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="162dp"
-        android:layout_marginTop="126dp"
-        android:text="TextView"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="554dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"/>
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
 
-    <TextView
-        android:id="@+id/txt_town_no"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="54dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="@+id/txt_town_name"
-        app:layout_constraintTop_toBottomOf="@+id/txt_town_name"
-        android:visibility="gone"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/mobile_list"
+                android:layout_width="365dp"
+                android:layout_height="625dp"
+                android:layout_marginBottom="504dp"
+                android:padding="8dp"
+                android:scrollbars="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                tools:listitem="@layout/mobile_list_item" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/btn_send_message"
@@ -50,7 +61,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/primary_btn_bg"
         android:fontFamily="@font/roboto_regular"
-        android:text="Logout"
+        android:text="Send Message"
         android:textAllCaps="false"
         android:textColor="@android:color/background_light"
         android:textSize="16sp"
