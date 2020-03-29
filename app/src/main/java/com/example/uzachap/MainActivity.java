@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         JSONObject jsonObject = response.getJSONObject(i);
-                        Town listtown = new Town(jsonObject.getInt("town_no"),jsonObject.getString("town_name"));
+                        Town listtown = new Town(jsonObject.getInt("town_no"),jsonObject.getString("town_name"), jsonObject.getString("mobile_no"));
                         list_town.add(listtown);
                     } catch (JSONException e) {
                         e.printStackTrace();

@@ -5,40 +5,66 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SendMessageActivity">
-
-    <TextView
-        android:id="@+id/txt_town_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="162dp"
-        android:layout_marginTop="126dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"/>
-
-    <TextView
-        android:id="@+id/txt_town_no"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="54dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="@+id/txt_town_name"
-        app:layout_constraintTop_toBottomOf="@+id/txt_town_name"
-        android:visibility="gone"/>
-
-    <Button
-        android:id="@+id/btn_send_message"
+    ​
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:textSize="22sp"
-        android:textColor="@color/white"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="238dp"
-        android:text="SEND MESSAGE"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        ​
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+    </com.google.android.material.appbar.AppBarLayout>
+    ​
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="554dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
+        ​
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+            ​
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/mobile_list"
+                android:layout_width="365dp"
+                android:layout_height="625dp"
+                android:layout_marginBottom="504dp"
+                android:padding="8dp"
+                android:scrollbars="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                tools:listitem="@layout/mobile_list_item" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+    ​
+    <Button
+        android:id="@+id/btn_send_message"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/primary_btn_bg"
+        android:fontFamily="@font/roboto_regular"
+        android:text="Send Message"
+        android:textAllCaps="false"
+        android:textColor="@android:color/background_light"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
