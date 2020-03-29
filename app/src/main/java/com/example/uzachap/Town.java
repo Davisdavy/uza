@@ -1,27 +1,27 @@
 package com.example.uzachap;
 
 public class Town {
-    private String mobile;
-    private String town_name;
+    private int townNo;
+    private String townName;
 
-    public Town(String mobile, String town_name) {
-        this.mobile = mobile;
-        this.town_name = town_name;
+    public Town(int townNo, String townName) {
+        this.townNo = townNo;
+        this.townName = townName;
     }
 
-    public String getMobile() {
-        return mobile;
+    public int getTownNo() {
+        return townNo;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setTownNo(int townNo) {
+        this.townNo = townNo;
     }
 
-    public String getTown_name() {
-        return town_name;
+    public String getTownName() {
+        return townName;
     }
 
-    public void setTown_name(String town_name) {
-        this.town_name = town_name;
+    public void setTownName(String townName) {
+        this.townName = townName;
     }
 }

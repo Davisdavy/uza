@@ -1,8 +1,6 @@
 package com.example.uzachap;
 
 public class ConfigT {
-    public static final String DATA_URL ="http://untameable-drive.000webhostapp.com/uza/db.php";
-    public static final String KEY_ID = "id";
-    public static final String JSON_ARRAY="result";
-
+    public static final String TOWN_URL ="https://untameable-drive.000webhostapp.com/uzachapAPIs/townsAPI.php";
+    public static final String MSG_URl = "https://untameable-drive.000webhostapp.com/uzachapAPIs/messagesAPI.php";
 }

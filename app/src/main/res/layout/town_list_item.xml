@@ -23,12 +23,13 @@
             android:textSize="22sp" />
 
         <TextView
-            android:id="@+id/txtCustomerNumber"
+            android:id="@+id/txtTownNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="6dp"
             android:textSize="16sp"
             android:text="12 Customers"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:visibility="gone"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
