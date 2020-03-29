@@ -67,11 +67,8 @@ public class TownAdapter extends RecyclerView.Adapter<TownAdapter.MyViewHolder> 
                     mBundle.putInt("TOWN_NO", town_no_value);
                     mIntent.putExtras(mBundle);
                     context.startActivity(mIntent);
-
-
                 }
             });
-
-        }
-        }
+          }
+    }
 }
