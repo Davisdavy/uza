@@ -9,7 +9,8 @@
 
     <LinearLayout
         android:id="@+id/head_welcome"
-        android:layout_width="357dp"
+        android:layout_width="match_parent"
+        android:background="@color/colorPrimaryDark"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -28,16 +29,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:layout_marginStart="18dp"
             android:fontFamily="@font/open_sans_bold"
             android:text="Where to?"
-            android:textColor="@color/colorPrimary"
+            android:textColor="#ffffff"
             android:textSize="22sp"
             />
     </LinearLayout>
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="554dp"
+        android:layout_width="360dp"
+        android:layout_height="563dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,8 +54,8 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/town_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="359dp"
+                android:layout_height="656dp"
                 android:layout_marginBottom="504dp"
                 android:padding="8dp"
                 android:scrollbars="horizontal"

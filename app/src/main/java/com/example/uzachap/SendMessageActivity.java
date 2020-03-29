@@ -3,23 +3,40 @@ package com.example.uzachap;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
+
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,8 +48,8 @@ public class SendMessageActivity extends AppCompatActivity {
 
     Button btnSendMessage;
     private RecyclerView recyclerView;
-    private List<Town> list_mobile;
-    private TownAdapter adapter;
+    private List<Customer> listMobile;
+    private CustomerAdapter customerAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
     String townName;
@@ -54,18 +71,15 @@ public class SendMessageActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
-        //no need for this
-//        town_name.setText(townName);
-//        town_no.setText(townNo);
-
-       // Add recylerview here to display mobile phone numbers of customers of the town clicked
+        // Recylerview to display mobile phone numbers of customers of the town clicked
         recyclerView=findViewById(R.id.mobile_list);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        list_mobile=new ArrayList<>();
-        adapter=new TownAdapter(this, list_mobile);
+        listMobile = new ArrayList<>();
+        customerAdapter = new CustomerAdapter(this, listMobile);
 
+        getCustomerMobileNo(townNo);
 
         btnSendMessage = findViewById(R.id.btn_send_message);
 
@@ -78,7 +92,66 @@ public class SendMessageActivity extends AppCompatActivity {
         });
     }
 
+    private void getCustomerMobileNo(final String townNumber) {
+        final ProgressDialog progressDialog = new ProgressDialog(SendMessageActivity.this);
+        progressDialog.setCancelable(false);
+        progressDialog.setIndeterminate(false);
+        progressDialog.setTitle("Please wait a moment...");
+        progressDialog.show();
 
+        StringRequest request = new StringRequest(Request.Method.POST, ConfigT.MOBILE_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if(!response.equals("null") && !response.equals("")){
+
+                    for (int i = 0; i < response.length(); i++) {
+                        try {
+                            JSONArray jsonArray = new JSONArray(response);
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            Customer customer = new Customer(jsonObject.getString("mobile_no"));
+                            listMobile.add(customer);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            progressDialog.dismiss();
+                        }
+                    }
+                    recyclerView.setAdapter(customerAdapter);
+                }else {
+                    new MaterialStyledDialog.Builder(getApplicationContext())
+                            .setTitle("Opps!")
+                            .setIcon(R.drawable.ic_sentiment_very_dissatisfied_black_24dp)
+                            .setDescription("We don't have any Customers in this town!")
+                            .setPositiveText("OK")
+                            .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                    dialog.dismiss();
+                                    finish();
+                                }
+                            }).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    progressDialog.dismiss();
+                    String newError = error.toString();
+                    newError = "No Internet Connection!";
+                    Toast.makeText(SendMessageActivity.this, newError, Toast.LENGTH_LONG).show();
+                }
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> param = new HashMap<>();
+                param.put("town_no",  townNumber);
+                return param;
+            }
+        };
+        request.setRetryPolicy(new DefaultRetryPolicy(30000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        MySingleton.getmInstance(SendMessageActivity.this).addToRequestQueue(request);
+    }
 
 
     public void sendMessage(final String townName, final String townNo){
@@ -133,17 +206,8 @@ public class SendMessageActivity extends AppCompatActivity {
 
 
 
-//    new MaterialStyledDialog.Builder(this)
-//            .setTitle("Opps!")
-//                        .setIcon(R.drawable.ic_sentiment_very_dissatisfied_black_24dp)
-//                        .setDescription("We don't have any question in this subject")
-//                        .setPositiveText("OK")
-//                        .onPositive(new MaterialDialog.SingleButtonCallback() {
-//        @Override
-//        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-//            dialog.dismiss();
-//            finish();
-//        }
-//    }).show();
+
+
 
 }
+

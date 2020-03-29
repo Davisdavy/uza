@@ -16,9 +16,9 @@ import java.util.List;
 
 public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.MyViewHolder> {
 
-    List<Town> mobileList;
+    List<Customer> mobileList;
     Context context;
-    public CustomerAdapter(Context context, List<Town> mobileList) {
+    public CustomerAdapter(Context context, List<Customer> mobileList) {
         this.mobileList = mobileList;
         this.context = context;
     }
@@ -32,7 +32,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Town mobilelist = mobileList.get(position);
+        Customer mobilelist = mobileList.get(position);
         holder.mobile_no.setText(mobilelist.getMobileNo());
     }
 
@@ -50,4 +50,5 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.MyView
             mobile_no = itemView.findViewById(R.id.txtMobileNo);
         }
     }
+
 }

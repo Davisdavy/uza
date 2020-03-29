@@ -8,9 +8,10 @@ public class Town {
     public Town() {
     }
 
-    public Town(int townNo, String townName,String mobileNo) {
+    public Town(int townNo, String townName, String mobileNo) {
         this.townNo = townNo;
         this.townName = townName;
+        this.mobileNo = mobileNo;
     }
 
     public int getTownNo() {
