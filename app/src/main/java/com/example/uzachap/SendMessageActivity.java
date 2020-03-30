@@ -102,8 +102,7 @@ public class SendMessageActivity extends AppCompatActivity {
         StringRequest request = new StringRequest(Request.Method.POST, ConfigT.MOBILE_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if(!response.equals("null") && !response.equals("")){
-
+                if(!response.equals("mobile_none")){
                     for (int i = 0; i < response.length(); i++) {
                         try {
                             JSONArray jsonArray = new JSONArray(response);
@@ -115,17 +114,21 @@ public class SendMessageActivity extends AppCompatActivity {
                             progressDialog.dismiss();
                         }
                     }
+                    progressDialog.dismiss();
                     recyclerView.setAdapter(customerAdapter);
                 }else {
-                    new MaterialStyledDialog.Builder(getApplicationContext())
+                    progressDialog.dismiss();
+                    new MaterialStyledDialog.Builder(SendMessageActivity.this)
                             .setTitle("Opps!")
                             .setIcon(R.drawable.ic_sentiment_very_dissatisfied_black_24dp)
-                            .setDescription("We don't have any Customers in this town!")
+                            .setDescription("We don't have any customers in this town!")
                             .setPositiveText("OK")
                             .onPositive(new MaterialDialog.SingleButtonCallback() {
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                     dialog.dismiss();
+                                    Intent intent = new Intent(SendMessageActivity.this, MainActivity.class);
+                                    startActivity(intent);
                                     finish();
                                 }
                             }).show();
@@ -171,13 +174,22 @@ public class SendMessageActivity extends AppCompatActivity {
                 }else {
                     progressDialog.dismiss();
                     Toast.makeText(SendMessageActivity.this, "Message sent successfully", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(SendMessageActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
-                Toast.makeText(SendMessageActivity.this, "Failed to send message", Toast.LENGTH_LONG).show();
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    progressDialog.dismiss();
+                    String newError = error.toString();
+                    newError = "No Internet Connection!";
+                    Toast.makeText(SendMessageActivity.this, newError, Toast.LENGTH_LONG).show();
+                }else {
+                    Toast.makeText(SendMessageActivity.this, "Failed to send message!", Toast.LENGTH_LONG).show();
+                }
             }
         }){
             @Override
@@ -194,7 +206,6 @@ public class SendMessageActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
         if (id == android.R.id.home) {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
