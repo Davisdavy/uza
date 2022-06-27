@@ -55,19 +55,16 @@ public class TownAdapter extends RecyclerView.Adapter<TownAdapter.MyViewHolder> 
             card_town = itemView.findViewById(R.id.card_town);
             town_name = itemView.findViewById(R.id.txtTownName);
             town_no = itemView.findViewById(R.id.txtTownNumber);
-            card_town.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    town_name_value = town_name.getText().toString();
-                    town_no_value = Integer.parseInt(town_no.getText().toString());
+            card_town.setOnClickListener(view -> {
+                town_name_value = town_name.getText().toString();
+                town_no_value = Integer.parseInt(town_no.getText().toString());
 
-                    Intent mIntent = new Intent(context, SendMessageActivity.class);
-                    Bundle mBundle = new Bundle();
-                    mBundle.putString("TOWN_NAME", town_name_value);
-                    mBundle.putInt("TOWN_NO", town_no_value);
-                    mIntent.putExtras(mBundle);
-                    context.startActivity(mIntent);
-                }
+                Intent mIntent = new Intent(context, SendMessageActivity.class);
+                Bundle mBundle = new Bundle();
+                mBundle.putString("TOWN_NAME", town_name_value);
+                mBundle.putInt("TOWN_NO", town_no_value);
+                mIntent.putExtras(mBundle);
+                context.startActivity(mIntent);
             });
           }
     }

@@ -2,6 +2,7 @@ package com.example.uzachap;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -51,17 +52,17 @@ public class MainActivity extends AppCompatActivity {
         progressDialog= new ProgressDialog(MainActivity.this);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
         list_town=new ArrayList<>();
         adapter=new TownAdapter(this, list_town);
+        recyclerView.setAdapter(adapter);
         getTownData();
 
-        mLogoutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAuth.signOut();
-                sendUserToLogin();
-            }
+        mLogoutBtn.setOnClickListener(v -> {
+            mAuth.signOut();
+            sendUserToLogin();
         });
+
     }
     @Override
     protected void onStart() {
@@ -85,33 +86,36 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.setIndeterminate(false);
         progressDialog.setTitle("Finding Towns...");
         progressDialog.show();
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(ConfigT.TOWN_URL, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        JSONObject jsonObject = response.getJSONObject(i);
-                        Town listtown = new Town(jsonObject.getInt("town_no"),jsonObject.getString("town_name"), jsonObject.getString("mobile_no"));
-                        list_town.add(listtown);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        progressDialog.dismiss();
-                    }
-                }
-                progressDialog.dismiss();
-                recyclerView.setAdapter(adapter);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(ConfigT.TOWN_URL, response -> {
+            for (int i = 0; i < response.length(); i++) {
+                try {
+                    JSONObject jsonObject = response.getJSONObject(i);
+                    Town listtown = new Town(jsonObject.getInt("town_no"),jsonObject.getString("town_name"), jsonObject.getString("mobile_no"));
+                    list_town.add(listtown);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                     progressDialog.dismiss();
-                    String newError = error.toString();
-                    newError = "No Internet Connection!";
-                    Toast.makeText(MainActivity.this, newError, Toast.LENGTH_SHORT).show();
                 }
-
             }
+            progressDialog.dismiss();
+            recyclerView.setAdapter(adapter);
+        }, error -> {
+            if (error instanceof TimeoutError ) {
+                progressDialog.dismiss();
+                error.toString();
+                String newError;
+                newError = "Network Busy";
+                Toast.makeText(MainActivity.this, newError, Toast.LENGTH_SHORT).show();
+            }else if(error instanceof NoConnectionError){
+                progressDialog.dismiss();
+                String newError = "Interner: "+error;
+                Toast.makeText(MainActivity.this, newError, Toast.LENGTH_LONG).show();
+                System.out.println("Error: "+error);
+            }
+            else{
+                Toast.makeText(MainActivity.this, "Something wrong happened!", Toast.LENGTH_SHORT).show();
+            }
+
         });
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);

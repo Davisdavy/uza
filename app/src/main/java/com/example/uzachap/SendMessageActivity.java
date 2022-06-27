@@ -179,17 +179,14 @@ public class SendMessageActivity extends AppCompatActivity {
                     finish();
                 }
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    progressDialog.dismiss();
-                    String newError = error.toString();
-                    newError = "No Internet Connection!";
-                    Toast.makeText(SendMessageActivity.this, newError, Toast.LENGTH_LONG).show();
-                }else {
-                    Toast.makeText(SendMessageActivity.this, "Failed to send message!", Toast.LENGTH_LONG).show();
-                }
+        }, error -> {
+            if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                progressDialog.dismiss();
+                String newError = error.toString();
+                newError = "No Internet Connection!";
+                Toast.makeText(SendMessageActivity.this, newError, Toast.LENGTH_LONG).show();
+            }else {
+                Toast.makeText(SendMessageActivity.this, "Failed to send message!", Toast.LENGTH_LONG).show();
             }
         }){
             @Override
