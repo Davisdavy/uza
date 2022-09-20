@@ -4,7 +4,7 @@ android {
     compileSdkVersion 30
 
     defaultConfig {
-        applicationId "com.example.uzachap"
+        applicationId "com.example.alveen"
         minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
@@ -19,7 +19,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    namespace 'com.example.uzachap'
+    namespace 'com.example.alveen'
 
 }
 

@@ -1,42 +1,42 @@
 {
   "project_info": {
-    "project_number": "330712908880",
-    "firebase_url": "https://uzax-c3dd8.firebaseio.com",
-    "project_id": "uzax-c3dd8",
-    "storage_bucket": "uzax-c3dd8.appspot.com"
+    "project_number": "997300072949",
+    "firebase_url": "https://uzachap-795d3.firebaseio.com",
+    "project_id": "uzachap-795d3",
+    "storage_bucket": "uzachap-795d3.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:330712908880:android:f081ffaa0c8bed07637d55",
+        "mobilesdk_app_id": "1:997300072949:android:abb26db94fe24a5fdf30bc",
         "android_client_info": {
-          "package_name": "com.example.uzachap"
+          "package_name": "com.example.alveen"
         }
       },
       "oauth_client": [
         {
-          "client_id": "330712908880-8qpgc9k8h1ce1c4ksl6qsl7n6m9fjd6c.apps.googleusercontent.com",
+          "client_id": "997300072949-esttjrbsutngjulo06jc8j91h2liupee.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.uzachap",
-            "certificate_hash": "f7b557e79539c152f30c47b6987f374791a598aa"
+            "package_name": "com.example.alveen",
+            "certificate_hash": "a75b53f9466af622496c99cdabb18f0b5497f599"
           }
         },
         {
-          "client_id": "330712908880-7hhtd4c9lg8mnn7s8n12cj50j316eft1.apps.googleusercontent.com",
+          "client_id": "997300072949-qi2grf6fu7hvvmf90nqp5i9ppclhq201.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAKFgBZ4yqI41Ey98BkU_tVIfWMtli7kng"
+          "current_key": "AIzaSyBqmLVWPsp3zUKGlNRM01kJJnOfCqhSCa8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "330712908880-7hhtd4c9lg8mnn7s8n12cj50j316eft1.apps.googleusercontent.com",
+              "client_id": "997300072949-qi2grf6fu7hvvmf90nqp5i9ppclhq201.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

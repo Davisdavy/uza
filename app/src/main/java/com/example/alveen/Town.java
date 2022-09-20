@@ -1,4 +1,4 @@
-package com.example.uzachap;
+package com.example.alveen;
 
 public class Town {
     private int townNo;

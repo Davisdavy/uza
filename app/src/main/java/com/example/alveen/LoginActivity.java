@@ -1,4 +1,4 @@
-package com.example.uzachap;
+package com.example.alveen;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.concurrent.TimeUnit;
@@ -55,13 +56,21 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     mLoginProgress.setVisibility(View.VISIBLE);
                     mGenerateBtn.setEnabled(false);
-                    PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                            complete_phone_number,
-                            60,
-                            TimeUnit.SECONDS,
-                            LoginActivity.this,
-                            mCallbacks
-                    );
+                    PhoneAuthOptions options = PhoneAuthOptions.newBuilder(mAuth)
+                                    .setPhoneNumber(complete_phone_number)
+                                            .setTimeout(60L, TimeUnit.SECONDS)
+                                                    .setActivity(LoginActivity.this)
+                                                            .setCallbacks(mCallbacks)
+                                                                    .build();
+                    PhoneAuthProvider.verifyPhoneNumber(options);
+
+//                    PhoneAuthProvider.getInstance().verifyPhoneNumber(
+//                            complete_phone_number,
+//                            60,
+//                            TimeUnit.SECONDS,
+//                            LoginActivity.this,
+//                            mCallbacks
+//                    );
                 }
             }
         });
@@ -101,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
