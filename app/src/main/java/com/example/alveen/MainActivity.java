@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.NoConnectionError;
 import com.android.volley.RequestQueue;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private TownAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     public ProgressDialog progressDialog;
+    private SwipeRefreshLayout swipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +51,15 @@ public class MainActivity extends AppCompatActivity {
         list_town=new ArrayList<>();
         adapter=new TownAdapter(this, list_town);
         recyclerView.setAdapter(adapter);
+        swipeRefreshLayout = findViewById(R.id.swipeMainContainer);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                list_town.clear();
+                getTownData();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
         getTownData();
 
         mLogoutBtn.setOnClickListener(v -> {

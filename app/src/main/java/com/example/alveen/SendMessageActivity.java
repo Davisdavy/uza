@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +17,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -46,6 +49,7 @@ public class SendMessageActivity extends AppCompatActivity {
     private List<Customer> listMobile;
     private CustomerAdapter customerAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     String townName;
     String townNo;
@@ -53,7 +57,15 @@ public class SendMessageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_message);
-
+        swipeRefreshLayout = findViewById(R.id.swipeContainer);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                listMobile.clear();
+                getCustomerMobileNo(townNo);
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
         townName = getIntent().getExtras().getString("TOWN_NAME"); //Display town name on the Toolbar
         townNo = String.valueOf(getIntent().getExtras().getInt("TOWN_NO"));
         //Toolbar code can be placed here
@@ -86,6 +98,7 @@ public class SendMessageActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void getCustomerMobileNo(final String townNumber) {
         final ProgressDialog progressDialog = new ProgressDialog(SendMessageActivity.this);

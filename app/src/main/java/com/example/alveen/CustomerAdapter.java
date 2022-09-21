@@ -30,8 +30,8 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Customer mobilelist = mobileList.get(position);
-        holder.mobile_no.setText(mobilelist.getMobileNo());
+        Customer mobileList = this.mobileList.get(position);
+        holder.mobile_no.setText(mobileList.getMobileNo());
     }
 
     @Override
