@@ -8,20 +8,12 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:997300072949:android:abb26db94fe24a5fdf30bc",
+        "mobilesdk_app_id": "1:997300072949:android:29dd2abd8033d74edf30bc",
         "android_client_info": {
           "package_name": "com.example.alveen"
         }
       },
       "oauth_client": [
-        {
-          "client_id": "997300072949-esttjrbsutngjulo06jc8j91h2liupee.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.alveen",
-            "certificate_hash": "a75b53f9466af622496c99cdabb18f0b5497f599"
-          }
-        },
         {
           "client_id": "997300072949-qi2grf6fu7hvvmf90nqp5i9ppclhq201.apps.googleusercontent.com",
           "client_type": 3
